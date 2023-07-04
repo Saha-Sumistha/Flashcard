@@ -1,0 +1,10 @@
+1.Home page--->Name app,about,background img,2 hyperlink of login & register& logout
+2.Login page-->with a good background user name,password option for login .
+	       Also hyperlink of register for new user & home.& logout
+3.Register page-->First name, Last name, Username, password, email  .
+			Also hyperlink of register for new user & home.& logout
+			Constraint:-first name atleast 3 char, email must contain @ & 8 char, password atleast 5 char, (first name,last nameusername, email) required
+4.Dashboard-->Add deck-->Add cards(deck contain -->add cards,delete card,view deck,score,last visited)
+		test-->easy,medium,hard option with score point
+5.logout
+		

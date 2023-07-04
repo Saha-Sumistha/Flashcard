@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Signin</title>
+        <style>
+            body {
+            background-image: url('static/index.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-size: 100% 100%;
+            font-family: emoji;
+            }
+            .sidenav {
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            /* overflow-x: hidden; */
+            padding-top: 20px;
+            }
+    
+            .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            }
+    
+            .sidenav a:hover {
+            color: #f1f1f1;
+    
+            }
+    
+            .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+            }
+    
+            @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+            }
+    
+            .dropbtn {
+            font-family: emoji;
+            background-color:#111;
+            color: #818181;
+            padding: 16px;
+            font-size: 25px;
+            border: none;
+            }
+    
+            .dropdown {
+            position: relative;
+            display: inline-block;
+            }
+    
+            .dropdown-content {
+            font-family: emoji;
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    
+            z-index: 1;
+            }
+    
+            .dropdown-content p {
+            color: #111;
+            padding: 5px 5px;
+            text-decoration: none;
+            display: block;
+            
+            }
+            .bottom-center {
+                    position: absolute;
+                    
+                    bottom: 1px;
+                    right: 16px;
+                    left: 150px;
+                    }    
+            .dropdown-content a:hover {background-color: #f1f1f1;}
+    
+            .dropdown:hover .dropdown-content {display: block;}
+    
+            .dropdown:hover .dropbtn {background-color:#111;color:#f1f1f1}
+    </style>
+    </head>
+    <body>
+    <div class="sidenav">
+      <a href="/register">Register</a>
+      <a href='/'>Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Support</button>
+              <div class="dropdown-content">
+                <p style="border-radius: 1em;">21f1000276@student.onlinedegree.iitm.ac.in</p>
+              </div>
+        </div>
+    </div>
+    
+    <div class="main">
+      <h2>Signin now</h2><hr style="height: 1px;width: 950px;margin-left: 0px;background-color: black;">
+      <form action='/signin' method="POST" style="font-size: 25px;">
+           
+            Email:<input type="email" placeholder="Enter email" name="email" required style="
+            padding: 0.65em 8em;
+            border-radius: 11px;
+            margin-left: 0.5em;
+        "><br><br>
+            Password:<input type="password" placeholder="Your password" name="password" required style="
+            padding: 0.65em 8em;
+            border-radius: 11px;
+            margin-left: 0.5em;
+        "><br><br>
+            
+         <button type="submit" style="
+            border-radius: 0.5em;
+            border-radius: 0.5em;
+            padding: 0.7em 1.5em;
+        
+        " >Signin</button>
+        </form>
+        <br>
+        <div class="bottom-center" style="text-align: center;font-size: 18px;"><h5>&copy Sumistha Saha.All rights reserved</h5></div>
+        
+      </div>
+    </body>
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <style>
+        body {
+        background-image: url('static/rs.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <form action='/signin' method="POST">
+        Email:<input type="email" placeholder="Email" name="email" required><br><br>
+        Password:<input type="password" placeholder="Password" name="password" required><br><br>
+        <input type="submit">
+    </form>
+    <br><br>
+    <a href='/register'>Register </a>
+    <br><br>
+    <a href='/'>Go Back</a>
+</body> -->
+</html>

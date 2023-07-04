@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Register</title>
+    <style>
+        body {
+        background-image: url('/static/tree.jpeg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        font-family: emoji;
+    
+        }
+       
+        .sidenav {
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        /* overflow-x: hidden; */
+        padding-top: 20px;
+        }
+
+        .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        }
+
+        .sidenav a:hover {
+        color: #f1f1f1;
+
+        }
+
+        .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 18px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+        }
+
+        .dropbtn {
+        font-family: emoji;
+        background-color:#111;
+        color: #818181;
+        padding: 16px;
+        font-size: 25px;
+        border: none;
+        }
+
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        font-family: emoji;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+        z-index: 1;
+        }
+
+        .dropdown-content p {
+        color: #111;
+        padding: 5px 5px;
+        text-decoration: none;
+        display: block;
+        
+        }
+        .bottom-center {
+                position:auto;
+                
+                bottom: 1px;
+                right: 16px;
+                left: 150px;
+                }    
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover .dropbtn {background-color:#111;color:#f1f1f1}
+
+        .card {
+          box-shadow: 0 10px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.5s;
+          width: 40%;
+        }
+        
+        .card:hover {
+          box-shadow: 0 16px 16px 0 rgba(0,0,0,0.2);
+        }
+        
+        .container {
+          padding: 2px 16px;
+        }
+        /* button */
+        .btn1 {
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+        padding: 8px 9px;
+        font-size: 16px;
+        cursor: pointer;
+        width:auto;
+        text-align: center;
+        /* border-radius: 5px; */
+        }
+
+        /* Green */
+        .success {
+        border-color: #b30000;
+        color: rgb(128, 0, 0);
+        }
+
+        .success:hover {
+        background-color: #c00000;
+        color: white;
+        }
+        .warning {
+        border-color: #ff9800;
+        color: orange;
+
+        }
+
+        .warning:hover {
+        background: #ff9800;
+        color: white;
+        }
+        /* Blue */
+        .info {
+        border-color: #2196F3;
+        color: dodgerblue;
+        
+        }
+
+        .info:hover {
+        background: #2196F3;
+        color: white;
+        }
+</style>
+<script>
+    function reply_click(clicked_id){
+        // alert(clicked_id[2])
+        document.getElementById("card-deck"+clicked_id.substring(2,)).style.visibility="visible";
+        var p=document.getElementById("c"+clicked_id.substring(2,)).innerHTML;
+    
+        
+    }
+    function func1(id){
+      document.getElementById("ff"+id.substring(1,)).style.visibility="visible";
+      //var m=document.getElementById("c"+clicked_id.substring(2,)).innerHTML;
+    }
+    function func2(id){
+      document.getElementById("fd"+id.substring(1,)).style.visibility="visible";
+    }
+</script>
+</head>
+<body>
+<div class="sidenav">
+  <a href='/signin/{{current_user.id}}'>Dashboard</a>
+  <a href="/logout">Logout</a>
+ 
+  <div class="dropdown">
+        <button class="dropbtn">Support</button>
+            <div class="dropdown-content">
+            <p style="border-radius: 1em;">21f1000276@student.onlinedegree.iitm.ac.in</p>
+            </div>
+   </div>
+   
+</div>
+
+<div class="main">
+    <!-- <h1><span style="color:rgb(17, 19, 17);margin: 1.5cm ;font-family: revert;">|| Welcome {{current_user.f_name}} &#128512  || Your overall score : {{score}} ||</span>
+        <hr  style="height: 1px;width: auto;margin-left: 0px;background-color: black;"></h1> -->
+    <h1 style="font-family: emoji;">{{current_user.f_name}} this is your Deck &#11015</h1>
+    <h4>Please scroll the page to see more than three deck  </h4>
+    <hr  style="height: 1px;width: auto;margin-left: 0px;background-color: black;"></h1>
+  <!-- <h2>Register now</h2><hr style="height: 1px;width: 950px;margin-left: 0px;background-color: black;"> -->
+ 
+    
+    
+    {% set count = namespace(value=0) %}
+    
+    {% for pow in rows %}
+    
+        <div class="card" style="padding-bottom: 30px; width: 9cm;height: 18cm; display : flex;flex-direction:column; float: left; margin-left: 80px; margin-bottom: 20px;" >
+            <div class="container"style="padding: 2px 1px;text-align:center" >
+                <h2 id="t1"><b id="c{{loop.index}}">{{pow[0]}}</b></h2> 
+                <h4>score : {{pow[1]}}</h4>
+                <h4> Last visited: 
+                    {% if pow[2]|float > 1 %}
+                        {{pow[2]}}{{" days ago"}}
+                    
+                    {% elif pow[2]==None %}
+                        {{"Not visited "}}   
+
+                    {% else %}
+                        {{ "%.1f"|format(pow[2]*24|float)}}{{" hours ago"}}
+                    {% endif %}
+                </h4>
+                <p id="p1"><a href="/signin/deck/card/{{current_user.id}}/{{pow[0]}}">View deck</a></p>
+                <p id="p1"><a href="/signin/deck/quiz/{{current_user.id}}/{{pow[0]}}">Take quiz</a></p>
+                <button id="bu{{loop.index}}" onclick="reply_click(this.id)" >Add Card</button><br><br>
+            </div>
+                <form id="card-deck{{loop.index}}" action="/signin/deck/card/{{current_user.id}}/{{pow[0]}}" method="POSt" style="visibility: hidden;">
+                    <label for="cname"><b>Card Front</b></label>
+                    <input type="text" placeholder="Enter front description" name="front" required>
+                    <br><br>
+                    <label for="bname"><b>Card Back</b></label>
+                    <input type="text" placeholder="Enter back description" name="back" required>
+                    <br><br>
+                    <button type="submit" > Submit </button>
+                </form>
+            <br>
+            <form id="ff{{loop.index}}" action="/signin/deck/{{current_user.id}}/{{pow[0]}}/edit" style="visibility: hidden" method="POST">
+                <label for="cname1"><b>Deck New name</b></label>
+                <input type="text" placeholder="Enter Deck name" name="frontd" required>
+                <br><br>
+                
+          
+                <button type="submit" >submit</button>
+              </form> 
+              <br>
+                <form id="fd{{loop.index}}" style="visibility: hidden;" action="/signin/deck/{{current_user.id}}/{{pow[0]}}/delete" method="post">
+                  <label for="dname3"><b>Are you Sure ? You want to delete the card.</b></label>
+                 
+                  <br><br>
+                  <button type="submit" >Delete</button>
+                  
+              </form><br>
+            <button class="btn1 warning" id="c{{loop.index}}" type="submit" name="click" value="Edit" onclick="func1(this.id)" >Edit</button>
+            <button class="btn1 success" id="b{{loop.index}}" type="submit" name="click" value="delete" onclick="func2(this.id)">Delete</button>
+            
+            <button class="btn1 info" type="submit" name="click" value="cancel"><a href="/signin/deck/{{current_user.id}}" style="text-decoration: none;">Cancel</a></button>
+        </div>
+        {% set count.value = count.value + 1 %}
+        {% if count.value ==4 %}
+
+            {% set count =  namespace(value=0) %}    
+            <br><br>
+        
+        {% endif %}
+    {% endfor %} 
+  </div>
+  
+  
+
+</html>
+
+
+
+

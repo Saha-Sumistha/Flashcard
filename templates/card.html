@@ -1,0 +1,577 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        
+        background-image: url('/static/underprofile.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        }
+        .flip-box {
+          background-color: transparent;
+          width: 300px;
+          height: 200px;
+          border: 1px solid #f1f1f1;
+          perspective: 1000px;
+        }
+        
+        .flip-box-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.8s;
+          transform-style: preserve-3d;
+        }
+        
+        .flip-box:hover .flip-box-inner {
+          transform: rotateY(180deg);
+        }
+        
+        .flip-box-front, .flip-box-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
+        
+        .flip-box-front {
+          background-color: #bbb;
+          color: black;
+        }
+        
+        .flip-box-back {
+          background-color: dodgerblue;
+          color: white;
+          transform: rotateY(180deg);
+        }
+
+        /* hKC */
+        /* button */
+        .btn1 {
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+        padding: 8px 9px;
+        font-size: 16px;
+        cursor: pointer;
+        width:auto;
+        text-align: center;
+        /* border-radius: 5px; */
+        }
+
+        /* Green */
+        .success {
+        border-color: #b30000;
+        color: rgb(128, 0, 0);
+        }
+
+        .success:hover {
+        background-color: #c00000;
+        color: white;
+        }
+        .warning {
+        border-color: #ff9800;
+        color: orange;
+
+        }
+
+        .warning:hover {
+        background: #ff9800;
+        color: white;
+        }
+        /* Blue */
+        .info {
+        border-color: #2196F3;
+        color: dodgerblue;
+        
+        }
+
+        .info:hover {
+        background: #2196F3;
+        color: white;
+        }
+        
+        </style>
+
+    <script>
+
+        function reply_click(){
+            var collection1 = document.getElementsByClassName("flip-box");
+            
+            var m = Math.floor((Math.random() * document.getElementById("kk").innerHTML)+1);
+            for (var i =0 ; i < collection1.length; i++){
+                if (i+1 != m){
+                    document.getElementById('js'+(i+1)).style.visibility="hidden";
+                }
+                else{
+                    document.getElementById('js'+(i+1)).style.visibility="visible";  
+                        
+                }
+            }
+            
+        }
+        
+        function func1(id){
+          document.getElementById("ff"+id.substring(1,)).style.visibility="visible";
+          //var m=document.getElementById("c"+clicked_id.substring(2,)).innerHTML;
+        }
+        function func2(id){
+          document.getElementById("fd"+id.substring(1,)).style.visibility="visible";
+        }
+    </script>
+
+</head>
+<body>
+    <div >
+        <h1 >Deck : {{p}}</h1>
+        <h1>Deck score : {{cscore}}</h1>
+        <h2>Flip the cards &#11015</h2>
+        <button class='btn btn-success pull-right'style="background-color: #090909;border-color: #1a237e;margin: right -5cm;">
+            <a href='/signin/deck/{{current_user.id}}' style="color: white;" >Go Back</a>
+        </button>
+    </div>
+    <br>
+    
+    <div>
+    {% set count = namespace(value=0) %}
+    {% for row in rows %}
+    <div style="display: flex;flex-direction:row; float: left;">
+    <div class="flip-box" id="js{{loop.index}}" style="visibility:visible;margin-top: 42.2px;margin-left: 60px;"> 
+      
+    <div class="flip-box-inner">
+        <div class="flip-box-front">
+        <h2 id="c">Front Side</h2>
+        <br>
+        <br>
+        <h3>{{row[1]}}</h3>
+    </div>
+    <div class="flip-box-back">
+        <h2>Back Side</h2>
+        <br>
+        <br>
+        <h3>{{row[2]}}</h3>
+    </div>
+
+
+    </div>
+
+    <form id="ff{{loop.index}}" action="/signin/deck/quiz/{{current_user.id}}/{{p}}/card/{{row[0]}}/edit" style="visibility: hidden" method="POST">
+        <label for="cname1"><b>Card Front</b></label>
+        <input type="text" placeholder="Enter front description" name="fronte" required>
+        <br><br>
+        <label for="bname1"><b>Card Back</b></label>
+        <input type="text" placeholder="Enter back description" name="backe" required>
+  
+        <button type="submit" >submit</button>
+      </form> 
+      
+        <form id="fd{{loop.index}}" style="visibility: hidden;" action="/signin/deck/quiz/{{current_user.id}}/{{p}}/card/{{row[0]}}/delete" method="post">
+          <label for="dname3"><b>Are you Sure ? You want to delete the card.</b></label>
+         
+          <br>
+          <button type="submit" >Delete</button>
+          <br>
+          
+      </form>
+      
+        <button class="btn1 warning" id="c{{loop.index}}" type="submit" name="click" value="Edit" onclick="func1(this.id)" >Edit</button>
+        <button class="btn1 success" id="b{{loop.index}}" type="submit" name="click" value="delete" onclick="func2(this.id)">Delete</button>
+        
+        <button class="btn1 info" type="submit" name="click" value="cancel"><a href="/signin/deck/card/{{current_user.id}}/{{p}}" style="text-decoration: none;">Cancel</a></button>
+    </div>
+    </div>      
+    {% set count.value = count.value + 1 %}
+    {% if count.value ==5 %}
+        {% set count =  namespace(value=0) %}    
+            <br><br>
+        
+    {% endif %}
+    
+    {% endfor %}
+    </div>
+    <p id="kk" style="visibility: hidden;">{{rows | length}}</p>
+    <br><br>
+    
+     
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <style>
+       body {
+          font-family: Arial, Helvetica, sans-serif;
+        
+        background-image: url('/static/underprofile.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        }
+        .flip-box {
+          background-color: transparent;
+          width: 300px;
+          height: 200px;
+          border: 1px solid #f1f1f1;
+          perspective: 1000px;
+        }
+        
+        .flip-box-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.8s;
+          transform-style: preserve-3d;
+        }
+        
+        .flip-box:hover .flip-box-inner {
+          transform: rotateY(180deg);
+        }
+        
+        .flip-box-front, .flip-box-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
+        
+        .flip-box-front {
+          background-color: rgb(41, 252, 189);
+          color: black;
+        }
+        
+        .flip-box-back {
+          background-color: dodgerblue;
+          color: white;
+          transform: rotateY(180deg);
+        }
+
+        /* hKC */
+        /* button */
+        .btn1 {
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+        padding: 8px 9px;
+        font-size: 16px;
+        cursor: pointer;
+        width:auto;
+        text-align: center;
+        /* border-radius: 5px; */
+        }
+
+        /* Green */
+        .success {
+        border-color: #b30000;
+        color: rgb(128, 0, 0);
+        }
+
+        .success:hover {
+        background-color: #c00000;
+        color: white;
+        }
+        .warning {
+        border-color: #ff9800;
+        color: orange;
+
+        }
+
+        .warning:hover {
+        background: #ff9800;
+        color: white;
+        }
+        /* Blue */
+        .info {
+        border-color: #2196F3;
+        color: dodgerblue;
+        
+        }
+
+        .info:hover {
+        background: #2196F3;
+        color: white;
+        }
+        
+/* ######################################### */
+
+
+        body {
+        background-image: url('/static/tree.jpeg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        font-family: emoji;
+    
+        }
+       
+        .sidenav {
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        /* overflow-x: hidden; */
+        padding-top: 20px;
+        }
+
+        .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        }
+
+        .sidenav a:hover {
+        color: #f1f1f1;
+
+        }
+
+        .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 18px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+        }
+
+        .dropbtn {
+        font-family: emoji;
+        background-color:#111;
+        color: #818181;
+        padding: 16px;
+        font-size: 25px;
+        border: none;
+        }
+
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        font-family: emoji;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+        z-index: 1;
+        }
+
+        .dropdown-content p {
+        color: #111;
+        padding: 5px 5px;
+        text-decoration: none;
+        display: block;
+        
+        }
+        .bottom-center {
+                position:auto;
+                
+                bottom: 1px;
+                right: 16px;
+                left: 150px;
+                }    
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover .dropbtn {background-color:#111;color:#f1f1f1}
+
+        .card {
+          box-shadow: 0 10px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.5s;
+          width: 40%;
+        }
+        
+        .card:hover {
+          box-shadow: 0 16px 16px 0 rgba(0,0,0,0.2);
+        }
+        
+        .container {
+          padding: 2px 16px;
+        }
+        /* button */
+        .btn1 {
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+        padding: 8px 9px;
+        font-size: 16px;
+        cursor: pointer;
+        width:auto;
+        text-align: center;
+        /* border-radius: 5px; */
+        }
+
+        /* Green */
+        .success {
+        border-color: #b30000;
+        color: rgb(128, 0, 0);
+        }
+
+        .success:hover {
+        background-color: #c00000;
+        color: white;
+        }
+        .warning {
+        border-color: #ff9800;
+        color: orange;
+
+        }
+
+        .warning:hover {
+        background: #ff9800;
+        color: white;
+        }
+        /* Blue */
+        .info {
+        border-color: #2196F3;
+        color: dodgerblue;
+        
+        }
+
+        .info:hover {
+        background: #2196F3;
+        color: white;
+        }
+
+
+</style>
+
+    <script>
+
+        function reply_click(){
+            var collection1 = document.getElementsByClassName("flip-box");
+            
+            var m = Math.floor((Math.random() * document.getElementById("kk").innerHTML)+1);
+            for (var i =0 ; i < collection1.length; i++){
+                if (i+1 != m){
+                    document.getElementById('js'+(i+1)).style.visibility="hidden";
+                }
+                else{
+                    document.getElementById('js'+(i+1)).style.visibility="visible";  
+                        
+                }
+            }
+            
+        }
+        
+        function func1(id){
+          document.getElementById("ff"+id.substring(1,)).style.visibility="visible";
+          //var m=document.getElementById("c"+clicked_id.substring(2,)).innerHTML;
+        }
+        function func2(id){
+          document.getElementById("fd"+id.substring(1,)).style.visibility="visible";
+        }
+    </script>
+
+</head>
+<body>
+  <div class="sidenav">
+    <a href='/signin/deck/{{current_user.id}}'>Go back</a>
+    
+   
+    <div class="dropdown">
+          <button class="dropbtn">Support</button>
+              <div class="dropdown-content">
+              <p style="border-radius: 1em;">21f1000276@student.onlinedegree.iitm.ac.in</p>
+              </div>
+     </div>
+     
+  </div>
+
+  <div class="main">
+    <div >
+        <h1 >Deck : {{p}}</h1>
+        <h3>Deck score : {{cscore}}</h3>
+        <h4>Flip the cards to view it's backside</h4>
+        <hr  style="height: 1px;width: auto;margin-left: 0px;background-color: black;">
+    </div>
+    <br>
+    
+    <div>
+    {% set count = namespace(value=0) %}
+    {% for row in rows %}
+    <div style="display: flex;flex-direction:row; float: left;height: 450px;">
+    <div class="flip-box" id="js{{loop.index}}" style="visibility:visible;margin-top: 42.2px;margin-left: 60px;"> 
+      
+    <div class="flip-box-inner">
+        <div class="flip-box-front">
+        <h2 id="c">Front Side</h2>
+        <br>
+        <br>
+        <h3>{{row[1]}}</h3>
+    </div>
+    <div class="flip-box-back">
+        <h2>Back Side</h2>
+        <br>
+        <br>
+        <h3>{{row[2]}}</h3>
+    </div>
+
+
+    </div>
+
+    <form id="ff{{loop.index}}" action="/signin/deck/quiz/{{current_user.id}}/{{p}}/card/{{row[0]}}/edit" style="visibility: hidden" method="POST">
+        <label for="cname1"><b>Card Front</b></label>
+        <input type="text" placeholder="Enter front description" name="fronte" required>
+        <br><br>
+        <label for="bname1"><b>Card Back</b></label>
+        <input type="text" placeholder="Enter back description" name="backe" required>
+  
+        <button type="submit" >submit</button>
+      </form> 
+      
+        <form id="fd{{loop.index}}" style="visibility: hidden;" action="/signin/deck/quiz/{{current_user.id}}/{{p}}/card/{{row[0]}}/delete" method="post">
+          <label for="dname3"><b>Are you Sure ? You want to delete the card.</b></label>
+         
+          <br>
+          <button type="submit" >Delete</button>
+          <br>
+          
+      </form>
+      
+        <button class="btn1 warning" id="c{{loop.index}}" type="submit" name="click" value="Edit" onclick="func1(this.id)" >Edit</button>
+        <button class="btn1 success" id="b{{loop.index}}" type="submit" name="click" value="delete" onclick="func2(this.id)">Delete</button>
+        
+        <button class="btn1 info" type="submit" name="click" value="cancel"><a href="/signin/deck/card/{{current_user.id}}/{{p}}" style="text-decoration: none;">Cancel</a></button>
+    </div>
+    </div>      
+    {% set count.value = count.value + 1 %}
+    {% if count.value ==5 %}
+        {% set count =  namespace(value=0) %}    
+            <br><br>
+        
+    {% endif %}
+    
+    {% endfor %}
+    </div>
+    <p id="kk" style="visibility: hidden;">{{rows | length}}</p>
+    <br><br>
+    
+  </div> 
+</body>
+</html>
