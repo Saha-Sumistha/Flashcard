@@ -1,11 +1,5 @@
 # Project Description
-In this MAD1 final project I have to create a local hosting web application named Flashcard which
-can be used for memory traning . In this application a user can create his/her own decks . In each
-deck user can add his/her own double sided cards. The front side of the card will contain user
-provided question/word and the backside will contain the answer inserted by the user. For
-memory traning user can take quiz which will show random user given card one at a time and for
-each selected card user will be awarded particular marks. Also user can update or delete the
-cards as well as the decks
+In this MAD1 final project I have to create a local hosting web application, Flashcard, can be used for memory training. In this application, a user can create his/her own decks. In each deck, the user can add his/her own double-sided cards. The front side of the card will contain user provided question/word and the backside will contain the answer inserted by the user. For memory training, the user can take a quiz that will show a random user-given card one at a time, and for each selected card user will be awarded particular marks. Also, users can update or delete the cards and the decks.
 # Local Setup
 - Clone the project
 - Run `pip install requirements.txt` in your shell.
